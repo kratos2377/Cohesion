@@ -27,7 +27,7 @@ impl Comment {
 
 #[derive(Accounts)]
 pub struct SendComment<'info> {
-	#[account(init, payer = user, space = Comment::LEN]
+	#[account(init, payer = user, space = Comment::LEN)]
 	pub comment: Account<'info, Comment>,
 	#[account(mut)]
 	pub user: Signer<'info>,

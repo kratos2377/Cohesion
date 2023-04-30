@@ -23,7 +23,7 @@ impl Voting {
                     + PUBLIC_KEY_LENGTH
                     + TWEET_LENGTH
                     + TIMESTAMP_LENGTH+ VOTING_RESULT
-                    + BUMP_LENGTH
+                    + BUMP_LENGTH;
 }
 
 #[derive(Accounts)]

@@ -1,4 +1,4 @@
-use anchor_lang::prelude::*
+use anchor_lang::prelude::*;
 
 
 const DISCRIMINATOR_LENGTH: usize = 8;
@@ -11,7 +11,7 @@ const MAX_CONTENT_LENGTH: usize = 280 * 4;
 
 #[account]
 pub struct Tweet {
-    pub user: PubKey,
+    pub user: Pubkey,
     pub timestamp: i64,
     pub tag: String,
     pub content: String,
@@ -23,8 +23,8 @@ impl Tweet {
         + PUBLIC_KEY_LENGTH // Author.
         + TIMESTAMP_LENGTH // Timestamp.
         + TAG_LENGTH_PREFIX + MAX_TAG_LENGTH // Topic.
-        + CONTENT_LENGTH_PREFIX + MAX_CONTENT_LENGTH; // Content.
-        + 1 //state
+        + CONTENT_LENGTH_PREFIX + MAX_CONTENT_LENGTH // Content.
+        + 1; //state
 }
 
 

@@ -27,7 +27,7 @@ impl Reaction {
 pub struct React<'info> {
 	#[account(init, 
         payer = user, 
-        space = Reaction::LEN
+        space = Reaction::LEN,
         seeds = [b"reaction", user.key().as_ref(), tweet.key().as_ref()], 
         bump)]
 	pub reaction: Account<'info, Reaction>,
