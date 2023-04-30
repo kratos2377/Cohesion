@@ -1,5 +1,13 @@
 use anchor_lang::prelude::*;
 
+const DISCRIMINATOR_LENGTH: usize = 8;
+const USER_LENGTH: usize = 32;
+const RECIPIENT_LENGTH: usize = 32;
+const TIMESTAMP_LENGTH: usize = 8;
+const PREFIX_LENGTH: usize = 4;
+const CONTENT_LENGTH: usize = 280*4;
+const EDITED_STATE_LENGTH: usize = 1;
+
 #[account]
 pub struct Dm {
 	pub user: Pubkey,
@@ -9,10 +17,14 @@ pub struct Dm {
 	pub edited: bool,
 }
 
+
+impl Dm {
+	const LEN: usize = DISCRIMINATOR_LENGTH + USER_LENGTH + RECIPIENT_LENGTH + TIMESTAMP_LENGTH + PREFIX_LENGTH + CONTENT_LENGTH + EDITED_STATE_LENGTH;
+}
+
 #[derive(Accounts)]
 pub struct SendDm<'info> {
-	// space: 8 discriminator + 32 user + 32 recipient + 8 timestamp + (4 prefix + 280 * 4) content + 1 edited state
-	#[account(init, payer = user, space = 8 + 32 + 32 + 8 + (4 * 280 * 4) + 1)]
+	#[account(init, payer = user, space = Dm::LEN + 1)]
 	pub dm: Account<'info, Dm>,
 	#[account(mut)]
 	pub user: Signer<'info>,

@@ -1,5 +1,14 @@
 use anchor_lang::prelude::*;
 
+
+const DISCRIMINATOR_LENGTH: usize = 8;
+const PUBLIC_KEY_LENGTH: usize = 32;
+const TIMESTAMP_LENGTH: usize = 8;
+const REACTIONCHAR_LENGTH: usize = 1;
+const BUMP_LENGTH: usize = 1;
+
+
+
 #[account]
 pub struct Reaction {
 	pub user: Pubkey,
@@ -8,13 +17,17 @@ pub struct Reaction {
 	pub bump: u8,
 }
 
+
+impl Reaction {
+	const LEN: usize = DISCRIMINATOR_LENGTH + PUBLIC_KEY_LENGTH + TIMESTAMP_LENGTH + REACTIONCHAR_LENGTH + BUMP_LENGTH;
+}
+
 #[derive(Accounts)]
 #[instruction(tweet: Pubkey)]
 pub struct React<'info> {
 	#[account(init, 
         payer = user, 
-        // 8 discriminator + 32 user + 32 tweet + 8 timestamp + 1 ReactionChar enum + 1 bump
-        space = 8 + 32 + 32 + 1 + 1, 
+        space = Reaction::LEN
         seeds = [b"reaction", user.key().as_ref(), tweet.key().as_ref()], 
         bump)]
 	pub reaction: Account<'info, Reaction>,

@@ -1,5 +1,15 @@
 use anchor_lang::prelude::*;
 
+const DISCRIMINATOR_LENGTH: usize = 8;
+const USER_LENGTH: usize = 32;
+const TWEET_LENGTH: usize = 32;
+const PARENT_LENGTH: usize = 32;
+const TIMESTAMP_LENGTH: usize = 8;
+const PREFIX_LENGTH: usize = 4;
+const COMMENT_CONTENT_LENGTH: usize = 280*4;
+const EDITED_STATE_LENGTH: usize = 1;
+
+
 #[account]
 pub struct Comment {
 	pub user: Pubkey,
@@ -10,10 +20,14 @@ pub struct Comment {
 	pub state: Option<CommentState>,
 }
 
+
+impl Comment {
+	const LEN: usize = DISCRIMINATOR_LENGTH + USER_LENGTH + TWEET_LENGTH + PARENT_LENGTH + TIMESTAMP_LENGTH + PREFIX_LENGTH + COMMENT_CONTENT_LENGTH + EDITED_STATE_LENGTH;
+}
+
 #[derive(Accounts)]
 pub struct SendComment<'info> {
-	// space: 8 discriminator + 32 user + 32 tweet + 32 parent + 8 timestamp + (4 prefix + 280 * 4) content + 1 edited state
-	#[account(init, payer = user, space = 8 + 32 + 32 + 32 + 8 + (4 + 280 * 4) + 1)]
+	#[account(init, payer = user, space = Comment::LEN]
 	pub comment: Account<'info, Comment>,
 	#[account(mut)]
 	pub user: Signer<'info>,
