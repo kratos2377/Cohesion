@@ -1,11 +1,18 @@
 import React from 'react';
-import './App.css';
+import ConnectWallet from './components/connectWallet';
 
 function App() {
   return (
     <div className="App">
-      Nothing
-    </div>
+    <header className="App-header">
+      <h1>Solana Examples</h1>
+      <hr className="fullWidth" />
+
+      <p>Hello there</p>
+      <ConnectWallet/>
+
+    </header>
+  </div>
   );
 }
 
