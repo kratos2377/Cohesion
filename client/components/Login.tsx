@@ -1,15 +1,26 @@
 import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import { Payment } from './Payment'
-
+import Image from 'next/image'
 const Login = () => {
   const wallet = useWallet()
 
   /** show payment UI if wallet is connected */
-  if (wallet.connected) return <div>Payment window</div>
+  if (wallet.connected) return <Payment />
 
   return (
     <div className={styles.loginPage}>
+         <Image
+              src="/vercel.svg"
+              alt="Vercel Logo"
+              className="m-10 relative light:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+              width={100}
+              height={24}
+              priority
+            />
+        <div className={styles.description}>
+        Cohesion is a social platform build on solana blockchain.
+        </div>
       <p className={styles.text}>Login to access this app</p>
       <WalletMultiButton />
     </div>
@@ -19,6 +30,7 @@ const Login = () => {
 export default Login
 
 const styles = {
-  loginPage: `w-screen h-screen bg-white flex justify-center flex-col items-center`,
-  text: `text-4xl text-black mb-10`,
+  description: 'text-2xl text-white mb-3',
+  loginPage: `w-screen h-screen  bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r flex justify-center flex-col items-center`,
+  text: `text-4xs text-white mb-10`,
 }
