@@ -15,7 +15,7 @@ export default function Home() {
     if(wallet.connected) {
       setIsWallet(true)
       setTimeout(() => {
-        setIsWallet(true)
+        push("/home")
       }, 1000)
     
       
