@@ -1,20 +1,19 @@
 import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import Image from 'next/image'
-import HomePage from '@/pages/homepage'
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react'
 const Login = () => {
   const wallet = useWallet()
-  const [loadPage  , setLoadPage] = useState(false);
-
+  const {push } = useRouter()
     useEffect(() => {
       if(wallet.connected) {
-        setLoadPage(true)
+       push("/home")
       }
     } , [wallet]) 
 
   return (
-    ( loadPage ? <HomePage />  : <div className={styles.loginPage}>
+ <div className={styles.loginPage}>
     <Image
          src="/vercel.svg"
          alt="Vercel Logo"
@@ -28,7 +27,7 @@ const Login = () => {
    </div>
  <p className={styles.text}>Login to access this app</p>
  <WalletMultiButton />
-</div>)
+</div>
   )
 }
 
