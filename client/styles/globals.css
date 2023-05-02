@@ -19,3 +19,31 @@ a {
 * {
   box-sizing: border-box;
 }
+
+textarea::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  border-radius: 3px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background-color: #1f2937;
+}
+
+input::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+input::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  border-radius: 3px;
+}
+
+input::-webkit-scrollbar-track {
+  background-color: #1f2937;
+}

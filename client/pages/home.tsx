@@ -7,7 +7,7 @@ const HomeFeed = () => {
   let ar = [ 1 , 2 , 3 , 4 , 5]
   return (
     <div>
-      <div className={styles.latest}>
+      <div className="text-2xl text-white m-5">
         Latest Posts
       </div>
 
@@ -28,9 +28,3 @@ Vivamus tincidunt dolor at turpis mattis cursus. Aliquam erat volutpat. Phasellu
 }
 
 export default HomeFeed
-
-const styles = {
-  latest: 'text-2xl text-white m-5',
-  loginPage: `w-screen h-screen  bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r flex justify-center flex-col items-center`,
-  text: `text-4xs text-white mb-10`,
-}
