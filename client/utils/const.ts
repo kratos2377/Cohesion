@@ -1,5 +1,5 @@
 import { clusterApiUrl, PublicKey } from '@solana/web3.js'
-import cohesion from './cohesion.json'
+import cohesion from '../idl/cohesion.json'
 
 export const SOLANA_HOST = clusterApiUrl('devnet')
 
