@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Login from '@/components/Login'
 import { useRouter } from 'next/router';
 import { useWallet } from '@solana/wallet-adapter-react';
+import Loading from '@/components/Loading';
 
 export default function Home() {
 
@@ -24,7 +25,7 @@ export default function Home() {
 
     setLoading(false)
   } , [])
-  return  (loading ? <div>Loading....</div> :  (
+  return  (loading ? <div className='mt-8'><Loading/></div> :  (
     iswallet ? <div>Redirecting..... </div> :  <div>
     <Login/>
     </div>

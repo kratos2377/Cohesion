@@ -1,3 +1,4 @@
+import Loading from '@/components/Loading';
 import TweetCard from '@/components/TweetCard';
 import WriteTweetArea from '@/components/WriteTweetArea';
 import React, { useEffect, useState } from 'react'
@@ -19,7 +20,7 @@ const Profile = () => {
     <div>
 
 <div className="text-2xl text-white m-5 mx-10">
-Your Tweets
+Your Posts
       </div>
 
       <div className='mx-10 my-3'>
@@ -28,7 +29,7 @@ Your Tweets
 
 <div className='mx-8 my-3'>
 {
-  loading ? <div>Loading...... </div> :  <div > 
+  loading ? <div className='mt-8'><Loading/> </div> :  <div > 
  {ar.map( (ele) =>  <TweetCard author={'admasida7sd67aufbiuadshf89ad6fa76dtsfasdyufgylasdf7'} content={"ASDSADUUDASHDUHASDHGASDHISADHSAHDHDHISAD"} commentCount={23} likeCount={12} /> )}
  </div>
  }

@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 
 interface UserCardProps {
@@ -11,6 +12,11 @@ const UserCard: React.FC<UserCardProps> = ({
   publicAddress,
   totalPosts,
 }) => {
+  const router = useRouter()
+
+  const redirectToUserProfile = () => {
+    router.push(`/users/${publicAddress}`)
+  }
   return (
 
 <div className="m-10 bg-gray-800 shadow-md rounded-md p-4">
@@ -32,7 +38,9 @@ const UserCard: React.FC<UserCardProps> = ({
                   alt="User profile"
                 />
                 <div>
+                  <button onClick={redirectToUserProfile}>
                   <div className="font-semibold">{publicAddress}</div>
+                  </button>
                   <div className="text-gray-400 text-sm">Solana public address</div>
                 </div>
               </div>
