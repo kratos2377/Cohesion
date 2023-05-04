@@ -5,8 +5,8 @@ const DISCRIMINATOR_LENGTH: usize = 8;
 const PUBLIC_KEY_LENGTH: usize = 32;
 const TIMESTAMP_LENGTH: usize = 8;
 const TWEET_LENGTH: usize = 32; 
-const VOTING_RESULT: usize = 50 * 4; 
-const BUMP_LENGTH: usize = 4;
+const VOTING_RESULT: usize = 1; 
+const BUMP_LENGTH: usize = 1;
 
 
 #[account]

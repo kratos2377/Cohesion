@@ -24,7 +24,7 @@ impl Dm {
 
 #[derive(Accounts)]
 pub struct SendDm<'info> {
-	#[account(init, payer = user, space = Dm::LEN + 1)]
+	#[account(init, payer = user, space = Dm::LEN)]
 	pub dm: Account<'info, Dm>,
 	#[account(mut)]
 	pub user: Signer<'info>,
