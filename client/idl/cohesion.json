@@ -758,5 +758,8 @@
       "name": "AliasPresent",
       "msg": "An alias for this user is already registered"
     }
-  ]
+  ],
+  "metadata": {
+    "address": "8D1NPspyZ1fGY2FvuiBTXFCBLo3SKJY9QTdoyLqPbsTQ"
+  }
 }
