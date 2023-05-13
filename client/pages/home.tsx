@@ -1,10 +1,17 @@
 import TweetCard from '@/components/TweetCard'
+import { fetchTweets } from '@/rpc-calls/fetchTweets'
 import React, { useState } from 'react'
 
 const HomeFeed = () => {
 
   const [loadingTweet , setLoading] = useState(false)
   let ar = [ 1 , 2 , 3 , 4 , 5]
+
+
+  const fetchAllTweets= async () => {
+    const tweet = await fetchTweets();
+    console.log(tweet)
+  }
   return (
     <div>
       <div className="text-2xl text-white m-5">
@@ -22,7 +29,7 @@ Phasellus sagittis non lectus ut aliquet. Praesent facilisis nisl et odio pellen
 
 Vivamus tincidunt dolor at turpis mattis cursus. Aliquam erat volutpat. Phasellus a magna ante. Quisque sed nibh vulputate, volutpat tortor id, ultrices turpis. Sed eu nisi interdum, aliquet elit quis, sagittis metus. Vivamus ornare enim ut volutpat luctus. Suspendisse potenti. Morbi porta lorem vel mi scelerisque, vitae egestas erat maximus. Maecenas varius, tellus ac mollis pharetra, felis metus venenatis sapien, et placerat diam lectus a nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In eleifend, orci nec vestibulum auctor, erat enim volutpat urna, quis eleifend elit nibh vel nibh. In id elit in lectus tristique aliquam ac condimentum orci. Aliquam tincidunt velit et congue pellentesque. Donec sodales fringilla euismod`} commentCount={23} likeCount={12} /> )}
       </div>
-      
+      <button onClick={fetchAllTweets}>Get tweets</button>
     </div>
   )
 }

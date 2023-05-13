@@ -1,6 +1,7 @@
-import { PublicKey } from '@solana/web3.js'
-import { Provider, Program } from '@project-serum/anchor'
+import { Connection, PublicKey } from '@solana/web3.js'
+import { Program,  Provider } from '@project-serum/anchor'
 import idl from '../idl/cohesion.json'
+import { AnchorWallet, WalletContextState } from '@solana/wallet-adapter-react'
 
 const preflightCommitment = 'processed'
 const commitment = 'processed'
@@ -9,7 +10,7 @@ let workspace = null
 
 export const useWorkspace = () => workspace
 
-export const initWorkspace = (wallet, connection) => {
+export const initWorkspace = (wallet, connection: Connection) => {
   const provider = new Provider(connection, wallet, {
     preflightCommitment,
     commitment,

@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react';
 import Login from '@/components/Login'
 import { useRouter } from 'next/router';
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import Loading from '@/components/Loading';
+import { initWorkspace } from '@/utils/useWorkspace';
 
 export default function Home() {
 
   const [loading , setLoading] = useState(true)
   const [iswallet , setIsWallet] = useState(false)
-  const wallet = useWallet()
   const {push} = useRouter()
+
+  const wallet = useWallet()
+  const anchorWallet = useAnchorWallet()
+  const { connection } = useConnection()
+
+  initWorkspace(anchorWallet, connection)
 
 
   useEffect(() => {
