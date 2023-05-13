@@ -1,12 +1,17 @@
 import Loading from '@/components/Loading';
 import TweetCard from '@/components/TweetCard';
 import WriteTweetArea from '@/components/WriteTweetArea';
+import { TweetType } from '@/types/TweetTypes';
 import React, { useEffect, useState } from 'react'
+
+
+
 
 const Profile = () => {
   const [errorExists , setErrorExists] = useState(false)
   const [errorMessage , setErrorMessage] = useState("")
   const [loading , setLoading] = useState(true);
+  const [loadedTweets , setTweets] = useState<TweetType[]>([])
   let ar = [1 , 2]
 
   useEffect(() => {
@@ -25,6 +30,10 @@ const  setErrorMessageAndDuration = (message: string, duration: number) =>  {
     setErrorMessage("")
   }, duration);
 }
+
+const addTweet = (tweet: TweetType) => {
+  setTweets([tweet , ...loadedTweets])
+}
   
   return (
     <div>
@@ -38,7 +47,7 @@ Your Posts
 </div> : <> </>
  }
       <div className='mx-10 my-3'>
-    <WriteTweetArea/>
+    <WriteTweetArea setErrorMessageAndDuration={setErrorMessageAndDuration} addTweet={addTweet}/>
 </div>
 
 <div className='mx-8 my-3'>

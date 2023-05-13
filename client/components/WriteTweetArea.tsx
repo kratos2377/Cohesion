@@ -1,7 +1,16 @@
+import { sendTweet } from '@/rpc-calls/sendTweet';
+import { TweetType } from '@/types/TweetTypes';
 import { useState } from 'react';
 import { HiOutlinePhotograph } from "react-icons/hi";
 
-const WriteTweetArea = () => {
+
+
+type Props = {
+  setErrorMessageAndDuration: (message: string , duration: number) => void;
+  addTweet: (tweet: TweetType) => void;
+};
+
+const WriteTweetArea = ({ setErrorMessageAndDuration ,addTweet }: Props) => {
   const [tweetContent, setTweetContent] = useState('');
   const [tag, setTag] = useState('');
   const [charCount, setCharCount] = useState(0);
@@ -16,10 +25,33 @@ const WriteTweetArea = () => {
     setTag(event.target.value);
   };
 
-  const handleTweet = () => {
+  const resetEverything = () => {
+        
     setTweetContent("")
     setCharCount(0)
     setTag("")
+  }
+
+  const handleTweet = async () => {
+    
+    if(tweetContent.trim().length < 10) {
+      resetEverything();
+      setErrorMessageAndDuration("There should be more than or equal to 10 characters in tweet content" , 2500);
+      return;
+    }
+
+    if(tag.trim() === "" || tag.trim().length < 2) {
+      resetEverything();
+      setErrorMessageAndDuration("There should be more than or equal to 2 characters in tag" , 2500);
+      return;
+    }
+
+   const tweet = await sendTweet(tag , tweetContent)
+
+   console.log("Tweet recieved is: " , tweet)
+
+   addTweet(tweet)
+
     // Send tweet with tweetContent and tag
   };
 
