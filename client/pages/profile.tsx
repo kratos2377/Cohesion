@@ -4,10 +4,9 @@ import WriteTweetArea from '@/components/WriteTweetArea';
 import React, { useEffect, useState } from 'react'
 
 const Profile = () => {
-  const [hover, setHover] = useState(false);
-  const [searchText, setSearchText] = useState("");
+  const [errorExists , setErrorExists] = useState(false)
+  const [errorMessage , setErrorMessage] = useState("")
   const [loading , setLoading] = useState(true);
-
   let ar = [1 , 2]
 
   useEffect(() => {
@@ -15,6 +14,17 @@ const Profile = () => {
         setLoading(false)
       } , 2000)
   }, [])
+
+
+const  setErrorMessageAndDuration = (message: string, duration: number) =>  {
+
+  setErrorMessage(message)
+  setErrorExists(true)
+  setTimeout(() => {
+    setErrorExists(false)
+    setErrorMessage("")
+  }, duration);
+}
   
   return (
     <div>
@@ -23,6 +33,10 @@ const Profile = () => {
 Your Posts
       </div>
 
+      { errorExists ? <div className="w-100 mx-5 p-4 mb-4 z-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 text-center" role="alert">
+  {errorMessage}
+</div> : <> </>
+ }
       <div className='mx-10 my-3'>
     <WriteTweetArea/>
 </div>
@@ -34,7 +48,6 @@ Your Posts
  </div>
  }
 </div>
-
     </div>
   )
 }

@@ -8,6 +8,8 @@ const User = () => {
 
   const router = useRouter()
   const [userAddress , setUserAddress] = useState(router.query.user)
+  const [errorExists , setErrorExists] = useState(false)
+  const [errorMessage , setErrorMessage] = useState("")
   let ar = [1, 2]
 
   useEffect(() => {
@@ -16,6 +18,19 @@ const User = () => {
       } , 2000)
   } , [])
 
+
+  
+  const  setErrorMessageAndDuration = (message: string, duration: number) =>  {
+
+    setErrorMessage(message)
+    setErrorExists(true)
+    setTimeout(() => {
+      setErrorExists(false)
+      setErrorMessage("")
+    }, duration);
+  }
+
+
   return (
     <div>
 
@@ -23,7 +38,10 @@ const User = () => {
      {userAddress} Posts
           </div>
     
-   
+          { errorExists ? <div className="w-100 mx-5 p-4 mb-4 z-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 text-center" role="alert">
+  {errorMessage}
+</div> : <> </>
+ }
     
     <div className='mx-8 my-3'>
     {
