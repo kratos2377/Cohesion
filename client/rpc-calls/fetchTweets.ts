@@ -4,6 +4,9 @@ import { useWorkspace } from '../utils/useWorkspace'
 export const fetchTweets = async (filters = []) => {
   const { program } = useWorkspace()
   const tweets = await program.account.tweet.all(filters)
+
+
+  console.log("All tweets recieved are: " , tweets)
   return tweets
 }
 

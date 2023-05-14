@@ -1,9 +1,6 @@
 import { sendTweet } from '@/rpc-calls/sendTweet';
 import { TweetType } from '@/types/TweetTypes';
 import { useState } from 'react';
-import { HiOutlinePhotograph } from "react-icons/hi";
-
-
 
 type Props = {
   setErrorMessageAndDuration: (message: string , duration: number) => void;
