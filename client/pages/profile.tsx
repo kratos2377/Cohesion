@@ -1,7 +1,8 @@
 import Loading from '@/components/Loading';
+import NoTweets from '@/components/NoTweets';
 import TweetCard from '@/components/TweetCard';
 import WriteTweetArea from '@/components/WriteTweetArea';
-import { authorFilter, fetchTweets } from '@/rpc-calls/fetchTweets';
+import { authorTweets } from '@/rpc-calls/fetchTweets';
 import { TweetType } from '@/types/TweetTypes';
 import { initWorkspace } from '@/utils/useWorkspace';
 import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
@@ -17,13 +18,12 @@ const Profile = () => {
   const [loading , setLoading] = useState(true);
   const [loadedTweets , setTweets] = useState<TweetType[]>([])
   const wallet = useAnchorWallet()
-  let ar = [1 , 2]
 
   useEffect(() => {
     if(!wallet)
      return
 
-      fetchTweets([authorFilter(wallet.publicKey.toBase58())]).then((fetchTweets) => {
+      authorTweets(wallet.publicKey.toBase58()).then((fetchTweets) => {
         console.log("Profile tweets are: " , fetchTweets)
       }).finally(() => setLoading(false))
   }, [])
@@ -61,7 +61,7 @@ Your Posts
 <div className='mx-8 my-3'>
 {
   loading ? <div className='mt-8'><Loading/> </div> :  <div > 
- {ar.map( (ele) =>  <TweetCard author={'admasida7sd67aufbiuadshf89ad6fa76dtsfasdyufgylasdf7'} content={"ASDSADUUDASHDUHASDHGASDHISADHSAHDHDHISAD"} commentCount={23} likeCount={12} tag={"test"} /> )}
+ { loadedTweets.length === 0 ? <NoTweets message={"You have not posted any tweets"}/>   : loadedTweets.map( (ele) =>  <TweetCard author={'admasida7sd67aufbiuadshf89ad6fa76dtsfasdyufgylasdf7'} content={"ASDSADUUDASHDUHASDHGASDHISADHSAHDHDHISAD"} commentCount={23} likeCount={12} tag={"test"} /> )}
  </div>
  }
 </div>

@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import { useSlug } from '@/utils/useSlug'
 import TweetCard from '@/components/TweetCard'
 import Loading from '@/components/Loading'
+import NoTweets from '@/components/NoTweets'
+import { topicWiseTweets } from '@/rpc-calls/fetchTweets'
 
 const Topics = () => {
   const router = useRouter()
@@ -19,23 +21,18 @@ const Topics = () => {
     router.push(`/topics/${slugTopic}`)
     setViewedTopic(slugTopic)
   }
-  console.log("Slug topic is: " , slugTopic)
 
-  // const fetchTopicTweets = async () => {
-  //   if (slugTopic === viewedTopic) {
-  //     await fetchTweets([topicFilter(slugTopic)])
-  //       .then((fetchedTweets) => setTweets(fetchedTweets))
-  //       .finally(() => setLoading(false))
-  //   }
-  // }
-  const addTweet = (tweet:string) => setTweets([...tweets, tweet])
+  const fetchTopicTweets = async () => {
+    if (slugTopic === viewedTopic) {
+      await topicWiseTweets(slugTopic)
+        .then((fetchedTweets) => setTweets(fetchedTweets))
+        .finally(() => setLoading(false))
+    }
+  }
 
-  // Router hooks.
+
   useEffect(() => {
-  //  fetchTopicTweets()
-  setTimeout(() => {
-    setLoading(false)
-  })
+   fetchTopicTweets()
   }, [])
   return (
     <div>
@@ -68,7 +65,7 @@ const Topics = () => {
 
 {
   loading ? <div className='mt-8'><Loading/></div> : <div>
-  {ar.map( (ele) =>  <TweetCard tag={"test"} author={'admasida7sd67aufbiuadshf89ad6fa76dtsfasdyufgylasdf7'} content={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rutrum, leo eu tincidunt euismod, nibh metus tristique metus, at scelerisque dolor magna et dui. Pellentesque tristique leo id neque lobortis, vel lobortis nisi efficitur. Sed id dui tincidunt, hendrerit nisl eu, aliquet massa. Donec molestie rutrum justo. Proin nulla neque, gravida scelerisque quam at, imperdiet dignissim arcu. Cras facilisis urna ut ante commodo, eget auctor arcu iaculis. Proin libero elit, luctus sit amet sapien ut, fringilla rhoncus elite\
+  {tweets.length === 0 ? <NoTweets message={"You have not posted any tweets"}/>   : tweets.map( (ele) =>  <TweetCard tag={"test"} author={'admasida7sd67aufbiuadshf89ad6fa76dtsfasdyufgylasdf7'} content={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rutrum, leo eu tincidunt euismod, nibh metus tristique metus, at scelerisque dolor magna et dui. Pellentesque tristique leo id neque lobortis, vel lobortis nisi efficitur. Sed id dui tincidunt, hendrerit nisl eu, aliquet massa. Donec molestie rutrum justo. Proin nulla neque, gravida scelerisque quam at, imperdiet dignissim arcu. Cras facilisis urna ut ante commodo, eget auctor arcu iaculis. Proin libero elit, luctus sit amet sapien ut, fringilla rhoncus elite\
 
 Ut tempus faucibus lacus vitae cursus. Nam hendrerit, risus vel tempor pulvinar, orci diam pulvinar diam, blandit semper turpis augue nec eros. Sed dignissim mi a dui semper, at scelerisque est tristique. Morbi orci metus, tempus quis consequat sit amet, dictum ut metus. Nam mattis sit amet dui eget facilisis. Cras et sagittis sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non leo eu odio pharetra semper sit amet eget justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur molestie massa non mauris vestibulum gravida.\
 

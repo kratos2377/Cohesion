@@ -10,20 +10,37 @@ export const fetchTweets = async (filters = []) => {
   return tweets
 }
 
-export const authorFilter = (authorBase58PublicKey: string) => ({
-  memcmp: {
-    offset: 8, // Discriminator.
-    bytes: authorBase58PublicKey,
-  },
-})
+export const authorTweets = async (authorBase58PublicKey: string) => {
+  const { program } = useWorkspace()
+  const tweets = await program.account.tweet.all( {
+    memcmp: {
+      offset: 8, // Discriminator.
+      bytes: authorBase58PublicKey,
+    },
+  }
+)
 
-export const topicFilter = (topic: string) => ({
-  memcmp: {
-    offset:
-      8 + // Discriminator.
-      32 + // Author public key.
-      8 + // Timestamp.
-      4, // Topic string prefix.
-    bytes: bs58.encode(Buffer.from(topic)),
-  },
-})
+  console.log("All author tweets recieved are: " , tweets)
+  return tweets
+
+}
+
+export const topicWiseTweets = async (topic: string) => {
+
+  const { program } = useWorkspace()
+  const tweets = await program.account.tweet.all( {
+    memcmp: {
+      offset:
+        8 + // Discriminator.
+        32 + // Author public key.
+        8 + // Timestamp.
+        4, // Topic string prefix.
+      bytes: bs58.encode(Buffer.from(topic)),
+    },
+  }
+)
+
+  console.log("All topic wise tweets recieved are: " , tweets)
+  return tweets
+
+}

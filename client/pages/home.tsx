@@ -1,6 +1,8 @@
 import Loading from '@/components/Loading'
+import NoTweets from '@/components/NoTweets'
 import TweetCard from '@/components/TweetCard'
 import { fetchTweets } from '@/rpc-calls/fetchTweets'
+import { initializeTagsMap } from '@/utils/createTagMap'
 import React, { useEffect, useState } from 'react'
 
 interface TweetType {
@@ -20,12 +22,14 @@ const HomeFeed = () => {
   const fetchAllTweets= async () => {
     const tweets = await fetchTweets();
     console.log(tweets)
+    initializeTagsMap(tweets)
     setLoadedTweets([...tweets])
   }
 
 
   useEffect(() => {
     fetchAllTweets().then(() => {
+     
         setLoading(false)
     }).catch((err) => {
 
@@ -55,7 +59,7 @@ const HomeFeed = () => {
 </div> : <> </>
  }
         <div>
-          {loadedTweets.map( (ele) =>  <TweetCard tag={"test"} author={'admasida7sd67aufbiuadshf89ad6fa76dtsfasdyufgylasdf7'} content={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rutrum, leo eu tincidunt euismod, nibh metus tristique metus, at scelerisque dolor magna et dui. Pellentesque tristique leo id neque lobortis, vel lobortis nisi efficitur. Sed id dui tincidunt, hendrerit nisl eu, aliquet massa. Donec molestie rutrum justo. Proin nulla neque, gravida scelerisque quam at, imperdiet dignissim arcu. Cras facilisis urna ut ante commodo, eget auctor arcu iaculis. Proin libero elit, luctus sit amet sapien ut, fringilla rhoncus elite\
+          { loadedTweets.length === 0 ? <NoTweets message={"Looks like no tweets have been made by any user. You can write your own tweets or wait for others to write something"}/>   : loadedTweets.map( (ele) =>  <TweetCard tag={"test"} author={'admasida7sd67aufbiuadshf89ad6fa76dtsfasdyufgylasdf7'} content={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rutrum, leo eu tincidunt euismod, nibh metus tristique metus, at scelerisque dolor magna et dui. Pellentesque tristique leo id neque lobortis, vel lobortis nisi efficitur. Sed id dui tincidunt, hendrerit nisl eu, aliquet massa. Donec molestie rutrum justo. Proin nulla neque, gravida scelerisque quam at, imperdiet dignissim arcu. Cras facilisis urna ut ante commodo, eget auctor arcu iaculis. Proin libero elit, luctus sit amet sapien ut, fringilla rhoncus elite\
   
   Ut tempus faucibus lacus vitae cursus. Nam hendrerit, risus vel tempor pulvinar, orci diam pulvinar diam, blandit semper turpis augue nec eros. Sed dignissim mi a dui semper, at scelerisque est tristique. Morbi orci metus, tempus quis consequat sit amet, dictum ut metus. Nam mattis sit amet dui eget facilisis. Cras et sagittis sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non leo eu odio pharetra semper sit amet eget justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur molestie massa non mauris vestibulum gravida.\
   
