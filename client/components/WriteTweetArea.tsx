@@ -1,5 +1,6 @@
 import { sendTweet } from '@/rpc-calls/sendTweet';
 import { TweetType } from '@/types/TweetTypes';
+import { addTagToMap } from '@/utils/createTagMap';
 import { useState } from 'react';
 
 type Props = {
@@ -44,7 +45,7 @@ const WriteTweetArea = ({ setErrorMessageAndDuration ,addTweet }: Props) => {
     }
 
    const tweet = await sendTweet(tag , tweetContent)
-
+   addTagToMap(tag)
 
    addTweet(tweet)
 

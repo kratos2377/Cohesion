@@ -1,5 +1,6 @@
 import { TweetType } from "@/types/TweetTypes";
-
+// Not the best way to do it but i wont change the solana code now.
+//Lesson -> Consider all cases and decide the arch. beforehand
 
 let tagMap = new Map<string, number>();
 
