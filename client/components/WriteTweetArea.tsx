@@ -45,7 +45,6 @@ const WriteTweetArea = ({ setErrorMessageAndDuration ,addTweet }: Props) => {
 
    const tweet = await sendTweet(tag , tweetContent)
 
-   console.log("Tweet recieved is: " , tweet)
 
    addTweet(tweet)
 
