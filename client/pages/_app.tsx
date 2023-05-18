@@ -19,7 +19,6 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const wallet = useWallet()
 
-
   useEffect( () => {
     if(wallet.connected) {
       push("home")

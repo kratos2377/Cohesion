@@ -27,10 +27,12 @@ const HomeFeed = () => {
   useEffect(() => {
     fetchAllTweets().then(() => {
         setLoading(false)
-    }).catch(() => {
+    }).catch((err) => {
+
       console.log("Some error occured")
+      console.log(err)
     })
-  })
+  } , [])
 
   const  setErrorMessageAndDuration = (message: string, duration: number) =>  {
 

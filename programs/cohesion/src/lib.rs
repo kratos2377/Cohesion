@@ -5,7 +5,7 @@ pub mod errors;
 pub mod instructions;
 pub mod state;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("8D1NPspyZ1fGY2FvuiBTXFCBLo3SKJY9QTdoyLqPbsTQ");
 
 
 const TEXT_LENGTH: usize = 1024;

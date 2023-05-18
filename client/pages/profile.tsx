@@ -1,23 +1,31 @@
 import Loading from '@/components/Loading';
 import TweetCard from '@/components/TweetCard';
 import WriteTweetArea from '@/components/WriteTweetArea';
+import { authorFilter, fetchTweets } from '@/rpc-calls/fetchTweets';
 import { TweetType } from '@/types/TweetTypes';
+import { initWorkspace } from '@/utils/useWorkspace';
+import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import React, { useEffect, useState } from 'react'
 
 
 
 
 const Profile = () => {
+ 
   const [errorExists , setErrorExists] = useState(false)
   const [errorMessage , setErrorMessage] = useState("")
   const [loading , setLoading] = useState(true);
   const [loadedTweets , setTweets] = useState<TweetType[]>([])
+  const wallet = useAnchorWallet()
   let ar = [1 , 2]
 
   useEffect(() => {
-      setTimeout(() => {
-        setLoading(false)
-      } , 2000)
+    if(!wallet)
+     return
+
+      fetchTweets([authorFilter(wallet.publicKey.toBase58())]).then((fetchTweets) => {
+        console.log("Profile tweets are: " , fetchTweets)
+      }).finally(() => setLoading(false))
   }, [])
 
 

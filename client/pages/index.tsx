@@ -27,8 +27,6 @@ export default function Home() {
     
       
     } 
-
-
     setLoading(false)
   } , [])
   return  (loading ? <div className='mt-8'><Loading/></div> :  (
