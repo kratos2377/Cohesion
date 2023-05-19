@@ -1,5 +1,6 @@
 import Loading from '@/components/Loading';
 import UserCard from '@/components/UserCard'
+import { userPostMap } from '@/utils/createTagAndUserMap';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
@@ -7,13 +8,13 @@ const Users = () => {
   const [hover, setHover] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [loading , setLoading] = useState(true);
-  
+  const [userPosts , setUserPosts] = useState<Map<string , number>>()
   let ar = [1 , 2]
 
   useEffect(() => {
-      setTimeout(() => {
-        setLoading(false)
-      } , 2000)
+    //console.log(userPostMap)
+    setUserPosts(userPostMap)
+    setLoading(false)
   }, [])
   
   return (
@@ -43,14 +44,18 @@ Users
 
  {
   loading ? <div className='mt-8'><Loading/></div> :  <div > 
-  {ar.map((ele) =>
-    <UserCard
-  pictureUrl="https://picsum.photos/200"
-  publicAddress="0x1234567890abcdef"
-  totalPosts={42}
-/>
+  { userPosts != null && Array.from(userPosts.entries()).map(([userKey , postCount] , index) => (
+       <UserCard
+       key={index}
+     pictureUrl={`https://picsum.photos/seed/${userKey}/64/64`}
+     publicAddress={userKey}
+     totalPosts={postCount}
+   />
+  )
+ 
 
-)}
+) 
+  }
  </div>
  }
 

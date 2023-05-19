@@ -1,5 +1,5 @@
 import Loading from '@/components/Loading';
-import tagMap from '@/utils/createTagAndUserMap';
+import {tagMap } from '@/utils/createTagAndUserMap';
 import { useRouter } from 'next/router';
 import React, { useState , useEffect } from 'react'
 
@@ -9,7 +9,6 @@ const Topics = () => {
   const [searchText, setSearchText] = useState("");
   const router = useRouter()
   const [tags , setTags] = useState<Map<string, number>>()
-  let ar: number[] = [ ]
   const handleTagClick = (text: string) => {
     text = text.toLocaleLowerCase()
     router.push(`/topics/${text}`)
@@ -58,6 +57,7 @@ const Topics = () => {
  
       { tags != null && Array.from(tags.entries()).map(([tag , count] , index) => (
          <button
+         key={index}
          className={`border border-pink-500 rounded-full py-1 px-2 text-white bg-transparent ${
            hover ? "hover:bg-pink-500" : ""
          }`}
@@ -65,7 +65,7 @@ const Topics = () => {
          onMouseLeave={() => setHover(false)}
          onClick={() => handleTagClick(tag)}
        >
-        {"# " + tag.toLocaleLowerCase() + " " + count/2}
+        {"# " + tag.toLocaleLowerCase() + " " + count}
        </button>
       ))}
     </div> </>

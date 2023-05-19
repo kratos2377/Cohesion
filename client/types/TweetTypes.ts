@@ -1,9 +1,10 @@
+import { PublicKey } from "@solana/web3.js"
 
 interface Account {
   content: string,
-  user: string
+  user: string | PublicKey,
   tag: string,
-  state: string | null
+  state: string | null 
 }
 
 export interface TweetType {

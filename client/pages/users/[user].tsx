@@ -1,5 +1,7 @@
 import Loading from '@/components/Loading';
 import TweetCard from '@/components/TweetCard';
+import { authorTweets } from '@/rpc-calls/fetchTweets';
+import { TweetType } from '@/types/TweetTypes';
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
@@ -10,13 +12,19 @@ const User = () => {
   const [userAddress , setUserAddress] = useState(router.query.user)
   const [errorExists , setErrorExists] = useState(false)
   const [errorMessage , setErrorMessage] = useState("")
-  let ar = [1, 2]
+  const [tweets , setTweets] = useState<TweetType[]>([])
+
+  const fetchUserTweets = async () => {
+      await authorTweets(userAddress as string)
+        .then((fetchedTweets) => setTweets(fetchedTweets))
+        .finally(() => setLoading(false))
+    
+  }
+
 
   useEffect(() => {
-      setTimeout(() => {
-        setLoading(false)
-      } , 2000)
-  } , [])
+   fetchUserTweets()
+  }, [])
 
 
   
@@ -46,7 +54,7 @@ const User = () => {
     <div className='mx-8 my-3'>
     {
       loading ? <div className='mt-8'><Loading/> </div> :  <div > 
-     {ar.map( (ele) =>  <TweetCard author={'admasida7sd67aufbiuadshf89ad6fa76dtsfasdyufgylasdf7'} content={"ASDSADUUDASHDUHASDHGASDHISADHSAHDHDHISAD"} commentCount={23} likeCount={12} tag={"test"} /> )}
+     {tweets.map( (ele) =>  <TweetCard tag={ele.account.tag} author={ele.account.user.toBase58()} content={ele.account.content} /> )}
      </div>
      }
     </div>

@@ -17,6 +17,11 @@ const UserCard: React.FC<UserCardProps> = ({
   const redirectToUserProfile = () => {
     router.push(`/users/${publicAddress}`)
   }
+
+  const returnSlicedKey = (author: string) => {
+    let authorKey = author.substring(0 , 6) + "......" + author.slice(-6)
+    return authorKey
+  }
   return (
 
 <div className="m-10 bg-gray-800 shadow-md rounded-md p-4">
@@ -39,7 +44,7 @@ const UserCard: React.FC<UserCardProps> = ({
                 />
                 <div>
                   <button onClick={redirectToUserProfile}>
-                  <div className="font-semibold">{publicAddress}</div>
+                  <div className="font-semibold">{returnSlicedKey(publicAddress)}</div>
                   </button>
                   <div className="text-gray-400 text-sm">Solana public address</div>
                 </div>
