@@ -1,3 +1,4 @@
+import { addLikedTweetToSet } from "@/utils/createTagAndUserMap";
 import { useWorkspace } from "@/utils/useWorkspace"
 import { web3 } from '@project-serum/anchor'
 import * as anchor from "@project-serum/anchor";
@@ -31,8 +32,8 @@ export const likeTweet = async (tweetKey: string , voteType: VotingResult ) => {
       },
       signers: [],
     })
-    
-    const votingAccount = await program.account.voting.fetch(votingPDA)
 
+    const votingAccount = await program.account.voting.fetch(votingPDA)
+    addLikedTweetToSet(tweetKey)
     return votingAccount
   }

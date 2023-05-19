@@ -6,6 +6,8 @@ import Loading from '@/components/Loading'
 import NoTweets from '@/components/NoTweets'
 import { topicWiseTweets } from '@/rpc-calls/fetchTweets'
 import { TweetType } from '@/types/TweetTypes'
+import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react'
+import { initWorkspace } from '@/utils/useWorkspace'
 
 const Topics = () => {
   const router = useRouter()
@@ -14,9 +16,10 @@ const Topics = () => {
   const [topic, setTopic] = useState(router.query.topic)
   const [viewedTopic, setViewedTopic] = useState(router.query.topic)
   const [searchText, setSearchText] = useState("");
-  let ar = [1 , 2 ,3  , 4 ,5  , 6 , 7, 8]
   const slugTopic = useSlug(topic as string)
-
+  const anchorWallet = useAnchorWallet()
+  
+  const { connection } = useConnection()
   // Actions.
   const search = () => {
     router.push(`/topics/${slugTopic}`)
@@ -25,6 +28,7 @@ const Topics = () => {
 
   const fetchTopicTweets = async () => {
     if (slugTopic === viewedTopic) {
+      setTweets([])
       await topicWiseTweets(slugTopic)
         .then((fetchedTweets) => setTweets(fetchedTweets))
         .finally(() => setLoading(false))
@@ -33,6 +37,7 @@ const Topics = () => {
 
 
   useEffect(() => {
+    initWorkspace(anchorWallet, connection)
    fetchTopicTweets()
   }, [])
   return (

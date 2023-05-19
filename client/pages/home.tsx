@@ -1,9 +1,12 @@
 import Loading from '@/components/Loading'
 import NoTweets from '@/components/NoTweets'
 import TweetCard from '@/components/TweetCard'
+import { fetchLikes } from '@/rpc-calls/fetchLikes'
 import { fetchTweets } from '@/rpc-calls/fetchTweets'
 import { TweetType } from '@/types/TweetTypes'
 import { initializeTagsMap } from '@/utils/createTagAndUserMap'
+import { initWorkspace } from '@/utils/useWorkspace'
+import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react'
 import React, { useEffect, useState } from 'react'
 
 
@@ -14,18 +17,22 @@ const HomeFeed = () => {
   const [loadedTweets , setLoadedTweets] = useState<TweetType[]>([])
   const [errorExists , setErrorExists] = useState(false)
   const [errorMessage , setErrorMessage] = useState("")
-
+  const anchorWallet = useAnchorWallet()
   
-  const fetchAllTweets= async () => {
+  const { connection } = useConnection()
+  const fetchAllTweetsAndLikes= async () => {
+    setLoadedTweets([])
     const tweets = await fetchTweets();
-
-    initializeTagsMap(tweets)
+    const likes = await fetchLikes()
+    initializeTagsMap(tweets , likes)
     setLoadedTweets([...tweets])
   }
 
 
   useEffect(() => {
-    fetchAllTweets().then(() => {
+   
+    initWorkspace(anchorWallet, connection)
+    fetchAllTweetsAndLikes().then(() => {
      
         setLoading(false)
     }).catch((err) => {

@@ -7,7 +7,7 @@ interface Props {
 
 const NoTweets = ({message} : Props) => {
   return (
-    <div>{message}</div>
+    <div className='m-5'>{message}</div>
   )
 }
 

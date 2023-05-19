@@ -1,3 +1,4 @@
+import { LikeType } from "@/types/LikeType";
 import { TweetType } from "@/types/TweetTypes";
 import { PublicKey } from "@solana/web3.js";
 // Not the best way to do it but i wont change the solana code now.
@@ -5,8 +6,8 @@ import { PublicKey } from "@solana/web3.js";
 
 export let tagMap = new Map<string, number>();
 export let userPostMap = new Map<string  , number>();
-
-export const initializeTagsMap = (tweets: TweetType[]) => {
+export let userLikedSet = new Set<string>();
+export const initializeTagsMap = (tweets: TweetType[] , likes: LikeType[]) => {
     tagMap = new Map<string, number>();
     userPostMap = new Map<string  , number>();
     tweets.map((tweet) => {
@@ -25,6 +26,9 @@ export const initializeTagsMap = (tweets: TweetType[]) => {
       
     })
 
+    likes.forEach((ele) => {
+        userLikedSet.add(ele.account.tweet.toBase58())
+    })
 
 }
 
@@ -43,5 +47,9 @@ export const addTagToMap = (tag: string , user: string | undefined) => {
    if(user != undefined) {
     userPostMap.set(user , postNum + 1);
    }
+}
+
+export const addLikedTweetToSet = (tweetKey) => {
+    userLikedSet.add(tweetKey)
 }
 

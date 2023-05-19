@@ -6,6 +6,7 @@ import { useWorkspace } from "@/utils/useWorkspace";
 import Modal from "./Modal";
 import { VotingResult, likeTweet } from "@/rpc-calls/likePost";
 import { sendComment } from "@/rpc-calls/postComment";
+import { userLikedSet } from "@/utils/createTagAndUserMap";
 
 interface TweetCardProps {
   author: string,
@@ -19,6 +20,7 @@ const TweetCard = ({ author, content,  tag , tweetKey }: TweetCardProps) => {
   const [commentContent, setCommentContent] = useState("");
   const [charCount, setCharCount] = useState(0);
   const [loadModal , setLoadModal] = useState(false)
+  const [thisPost , setThisPost] = useState(false)
   const router = useRouter()
   const { wallet } = useWorkspace()
   const handleCommentWindow = () => {
@@ -56,7 +58,9 @@ const TweetCard = ({ author, content,  tag , tweetKey }: TweetCardProps) => {
   }
 
   const likePost = () => {
-    likeTweet(tweetKey , VotingResult.Like)
+    likeTweet(tweetKey , VotingResult.Like).then(() => {
+      setThisPost(true)
+    })
   }
   const showModal = () => {
     setLoadModal(true)
@@ -105,7 +109,9 @@ const TweetCard = ({ author, content,  tag , tweetKey }: TweetCardProps) => {
             
           </div>
           <div>
-            <FaHeart onClick={likePost} className="mr-1 hover:text-pink-400 hover:cursor-pointer" />
+          {
+            (userLikedSet.has(tweetKey) || thisPost) ?   <FaHeart className="mr-1 text-pink-700" /> : <FaHeart onClick={likePost} className="mr-1 hover:text-pink-400 hover:cursor-pointer" />
+          }
             
           </div>
 

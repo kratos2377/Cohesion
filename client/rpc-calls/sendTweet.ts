@@ -21,5 +21,5 @@ export const sendTweet = async (tag: string, content: string) => {
   const tweetAccount = await program.account.tweet.fetch(tweetKey.publicKey)
 
   // // 5. Wrap the fetched account in a Tweet model so our frontend can display it.
-   return  tweetAccount 
+   return  [tweetKey.publicKey , tweetAccount]
 }

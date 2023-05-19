@@ -4,6 +4,7 @@ import TweetCard from '@/components/TweetCard';
 import WriteTweetArea from '@/components/WriteTweetArea';
 import { authorTweets } from '@/rpc-calls/fetchTweets';
 import { TweetType } from '@/types/TweetTypes';
+import { initWorkspace } from '@/utils/useWorkspace';
 import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import React, { useEffect, useState } from 'react'
 
@@ -19,11 +20,13 @@ const Profile = () => {
   const [loading , setLoading] = useState(true);
   const [loadedTweets , setTweets] = useState<TweetType[]>([])
   const wallet = useAnchorWallet()
-
+  const { connection } = useConnection()
   useEffect(() => {
     if(!wallet)
      return
 
+     initWorkspace(wallet, connection)
+     setTweets([])
       authorTweets(wallet.publicKey.toBase58()).then((fetchTweets) => {
         setTweets(fetchTweets)
       }).finally(() => setLoading(false))
@@ -78,7 +81,7 @@ Your Posts
 <div className='mx-8 my-3'>
 {
   loading ? <div className='mt-8'><Loading/> </div> :  <div > 
- { loadedTweets.length === 0 ? <NoTweets message={"You have not posted any tweets"}/>   : loadedTweets.map( (ele , index) =>  <TweetCard key = {index}  tag={ele.account.tag} author={ele.account.user.toBase58()} content={ele.account.content}  /> )}
+ { loadedTweets.length === 0 ? <NoTweets message={"You have not posted any tweets"}/>   : loadedTweets.map( (ele , index) =>  <TweetCard key={index}  tag={ele.account.tag} author={ele.account.user.toBase58()} content={ele.account.content} tweetKey={ele.publicKey.toBase58()} /> )}
  </div>
  }
 </div>

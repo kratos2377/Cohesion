@@ -15,8 +15,8 @@ const Login = () => {
   return (
  <div className={styles.loginPage}>
     <Image
-         src="/vercel.svg"
-         alt="Vercel Logo"
+         src="/logo.svg"
+         alt="Cohesion Logo"
          className="m-10 relative light:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
          width={100}
          height={24}

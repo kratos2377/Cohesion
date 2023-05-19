@@ -2,6 +2,8 @@ import Loading from '@/components/Loading';
 import TweetCard from '@/components/TweetCard';
 import { authorTweets } from '@/rpc-calls/fetchTweets';
 import { TweetType } from '@/types/TweetTypes';
+import { initWorkspace } from '@/utils/useWorkspace';
+import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
@@ -13,8 +15,11 @@ const User = () => {
   const [errorExists , setErrorExists] = useState(false)
   const [errorMessage , setErrorMessage] = useState("")
   const [tweets , setTweets] = useState<TweetType[]>([])
-
+  const anchorWallet = useAnchorWallet()
+  
+  const { connection } = useConnection()
   const fetchUserTweets = async () => {
+    setTweets([])
       await authorTweets(userAddress as string)
         .then((fetchedTweets) => setTweets(fetchedTweets))
         .finally(() => setLoading(false))
@@ -23,6 +28,7 @@ const User = () => {
 
 
   useEffect(() => {
+    initWorkspace(anchorWallet, connection)
    fetchUserTweets()
   }, [])
 

@@ -44,7 +44,7 @@ const WriteTweetArea = ({ setErrorMessageAndDuration ,addTweet , userKey }: Prop
     }
 
    const tweet = await sendTweet(tag , tweetContent)
-   const newTweet: TweetType = createNewTweet(tweet.content , tweet.tag , tweet.state , tweet.user)
+   const newTweet: TweetType = createNewTweet(tweet[1].content , tweet[1].tag , tweet[1].state , tweet[1].user , tweet[0])
    addTagToMap(tag , userKey)
 
    addTweet(newTweet)
