@@ -1,28 +1,27 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { FaComment, FaHeart } from "react-icons/fa";
+import { FaComment, FaHeart  } from "react-icons/fa";
+import {AiOutlineComment , AiFillDelete} from "react-icons/ai"
+import { useWorkspace } from "@/utils/useWorkspace";
 
 interface TweetCardProps {
   author: string,
   content: string,
-  commentCount: number,
-  likeCount: number,
   tag: string
 }
 
-const TweetCard = ({ author, content, commentCount, likeCount , tag }: TweetCardProps) => {
+const TweetCard = ({ author, content,  tag }: TweetCardProps) => {
   const [showComment, setShowComment] = useState(false);
   const [commentContent, setCommentContent] = useState("");
   const [charCount, setCharCount] = useState(0);
   const router = useRouter()
-
+  const { wallet } = useWorkspace()
   const handleCommentWindow = () => {
     setCommentContent("")
     setShowComment(!showComment)
   }
 
   const handleComment = () => {
-    console.log("asdasd", commentContent);
     setShowComment(false);
     setCommentContent("");
   };
@@ -59,10 +58,19 @@ const TweetCard = ({ author, content, commentCount, likeCount , tag }: TweetCard
         />
       </div>
       <div className="flex flex-col w-full">
-        <div className="flex items-center justify-start">
+        <div className="flex items-center justify-betweem">
           <button onClick={redirectToUserProfile}>
           <div className="text-gray-400">{authorKey}</div>
           </button>
+     
+      <span className="ml-auto">
+          
+       {
+        wallet.publicKey.toBase58() === "someradnomekey " ?  <AiFillDelete className="mr-1 hover:text-pink-400 hover:cursor-pointer" /> : <></>
+       }
+        
+        </span>
+
         </div>
         <div className="mt-4 text-white">{content}</div>
         <div>
@@ -73,13 +81,19 @@ const TweetCard = ({ author, content, commentCount, likeCount , tag }: TweetCard
         <div className="mt-4 flex items-center justify-around text-gray-400">
           <div>
             <FaComment className="mr-1 hover:text-blue-200 hover:cursor-pointer" onClick={handleCommentWindow}/>
-            {commentCount}
+            
           </div>
           <div>
             <FaHeart className="mr-1 hover:text-pink-400 hover:cursor-pointer" />
-            {likeCount}
+            
           </div>
+
+
+<div>
+            <AiOutlineComment className="mr-1 hover:text-pink-400 hover:cursor-pointer" />
         </div>
+          </div>
+     
       </div>
      </div>
       {showComment && (

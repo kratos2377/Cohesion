@@ -1,14 +1,15 @@
 import { sendTweet } from '@/rpc-calls/sendTweet';
-import { TweetType } from '@/types/TweetTypes';
-import { addTagToMap } from '@/utils/createTagMap';
+import { TweetType, createNewTweet } from '@/types/TweetTypes';
+import { addTagToMap } from '@/utils/createTagAndUserMap';
 import { useState } from 'react';
 
 type Props = {
   setErrorMessageAndDuration: (message: string , duration: number) => void;
   addTweet: (tweet: TweetType) => void;
+  userKey: string | undefined
 };
 
-const WriteTweetArea = ({ setErrorMessageAndDuration ,addTweet }: Props) => {
+const WriteTweetArea = ({ setErrorMessageAndDuration ,addTweet , userKey }: Props) => {
   const [tweetContent, setTweetContent] = useState('');
   const [tag, setTag] = useState('');
   const [charCount, setCharCount] = useState(0);
@@ -33,23 +34,21 @@ const WriteTweetArea = ({ setErrorMessageAndDuration ,addTweet }: Props) => {
   const handleTweet = async () => {
     
     if(tweetContent.trim().length < 10) {
-      resetEverything();
       setErrorMessageAndDuration("There should be more than or equal to 10 characters in tweet content" , 2500);
       return;
     }
 
     if(tag.trim() === "" || tag.trim().length < 2) {
-      resetEverything();
       setErrorMessageAndDuration("There should be more than or equal to 2 characters in tag" , 2500);
       return;
     }
 
    const tweet = await sendTweet(tag , tweetContent)
-   addTagToMap(tag)
+   const newTweet: TweetType = createNewTweet(tweet.content , tweet.tag , tweet.state , tweet.user)
+   addTagToMap(tag , userKey)
 
-   addTweet(tweet)
-
-    // Send tweet with tweetContent and tag
+   addTweet(newTweet)
+    resetEverything()
   };
 
   const tweetRemaining = 280 - charCount;

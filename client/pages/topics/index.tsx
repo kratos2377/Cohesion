@@ -1,5 +1,5 @@
 import Loading from '@/components/Loading';
-import tagMap from '@/utils/createTagMap';
+import tagMap from '@/utils/createTagAndUserMap';
 import { useRouter } from 'next/router';
 import React, { useState , useEffect } from 'react'
 
@@ -65,7 +65,7 @@ const Topics = () => {
          onMouseLeave={() => setHover(false)}
          onClick={() => handleTagClick(tag)}
        >
-        {"# " + tag.toLocaleLowerCase() + " " + count.toString}
+        {"# " + tag.toLocaleLowerCase() + " " + count/2}
        </button>
       ))}
     </div> </>

@@ -7,8 +7,7 @@ export const sendTweet = async (tag: string, content: string) => {
 
   // 2. Generate a new Keypair for our new tweet account.
   const tweetKey = web3.Keypair.generate()
-
-  // 3. Send a "SendTweet" instruction with the right data and the right accounts.
+  // 3. Send  a "SendTweet" instruction with the right data and the right accounts.
   await program.rpc.sendTweet(tag, content, {
     accounts: {
       tweet: tweetKey.publicKey,
@@ -18,9 +17,9 @@ export const sendTweet = async (tag: string, content: string) => {
     signers: [tweetKey],
   })
 
-  // 4. Fetch the newly created account from the blockchain.
+  // // 4. Fetch the newly created account from the blockchain.
   const tweetAccount = await program.account.tweet.fetch(tweetKey.publicKey)
 
-  // 5. Wrap the fetched account in a Tweet model so our frontend can display it.
-  return (tweetKey.publicKey, tweetAccount)
+  // // 5. Wrap the fetched account in a Tweet model so our frontend can display it.
+   return  tweetAccount 
 }

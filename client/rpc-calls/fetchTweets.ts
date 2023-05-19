@@ -3,10 +3,9 @@ import { useWorkspace } from '../utils/useWorkspace'
 
 export const fetchTweets = async (filters = []) => {
   const { program } = useWorkspace()
+  console.log("Everything about program: " , program.account)
   const tweets = await program.account.tweet.all(filters)
 
-
-  console.log("All tweets recieved are: " , tweets)
   return tweets
 }
 
@@ -20,7 +19,6 @@ export const authorTweets = async (authorBase58PublicKey: string) => {
   }
 )
 
-  console.log("All author tweets recieved are: " , tweets)
   return tweets
 
 }
@@ -40,7 +38,6 @@ export const topicWiseTweets = async (topic: string) => {
   }
 )
 
-  console.log("All topic wise tweets recieved are: " , tweets)
   return tweets
 
 }
