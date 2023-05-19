@@ -11,14 +11,13 @@ let workspace = null
 export const useWorkspace = () => workspace
 
 export const initWorkspace = (wallet, connection: Connection) => {
-  console.log("The secret key is: " , wallet)
-
+ 
   const provider = new Provider(connection, wallet, {
     preflightCommitment,
     commitment,
   })
-  const program = new Program(idl, programID, provider)
 
+  const program = new Program(idl, programID, provider)
   workspace = {
     wallet,
     connection,
