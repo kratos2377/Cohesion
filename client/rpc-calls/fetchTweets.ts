@@ -4,6 +4,9 @@ import { useWorkspace } from '../utils/useWorkspace'
 export const fetchTweets = async (filters = []) => {
   const { program } = useWorkspace()
   const tweets = await program.account.tweet.all(filters)
+  const votings = await program.account.voting.all([])
+
+  console.log("Voting accounts are: " , votings)
   return tweets
 }
 
@@ -18,7 +21,6 @@ export const authorTweets = async (authorBase58PublicKey: string) => {
 )
 
 
-console.log("Author tweets are: " , tweets)
 
   return tweets
 

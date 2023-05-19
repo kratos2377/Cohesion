@@ -16,7 +16,6 @@ const Modal = ({tweetKey , closeModal}: Props) => {
     const fetchComments = async () => {
       
       fetchCommentForPosts(tweetKey).then((comments) => {
-        console.log("Fetched comments are: " , comments)
         setComments(comments)
       }).finally(() => {
         setLoading(false)

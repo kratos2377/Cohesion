@@ -14,7 +14,6 @@ export default function Home() {
   const wallet = useWallet()
   const anchorWallet = useAnchorWallet()
   const { connection } = useConnection()
-
   initWorkspace(anchorWallet, connection)
 
 

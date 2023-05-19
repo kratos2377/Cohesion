@@ -2,8 +2,6 @@ import { useWorkspace } from "@/utils/useWorkspace"
 import { web3 } from "@project-serum/anchor"
 import { PublicKey } from "@solana/web3.js"
 
-
-
 export const sendComment = async (base58PublicKey: string , content: string , parent: string) => {
     const { wallet, program } = useWorkspace()
 
@@ -23,6 +21,5 @@ export const sendComment = async (base58PublicKey: string , content: string , pa
   
     // // 4. Fetch the newly created account from the blockchain.
     const commentAccount = await program.account.comment.fetch(commentKey.publicKey)
-    console.log("THe recent posted comment is: " , commentAccount)
      return  commentAccount 
 }

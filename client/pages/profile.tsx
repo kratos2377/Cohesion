@@ -4,7 +4,6 @@ import TweetCard from '@/components/TweetCard';
 import WriteTweetArea from '@/components/WriteTweetArea';
 import { authorTweets } from '@/rpc-calls/fetchTweets';
 import { TweetType } from '@/types/TweetTypes';
-import { initWorkspace } from '@/utils/useWorkspace';
 import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import React, { useEffect, useState } from 'react'
 

@@ -4,7 +4,7 @@ import { FaComment, FaHeart  } from "react-icons/fa";
 import {AiOutlineComment , AiFillDelete} from "react-icons/ai"
 import { useWorkspace } from "@/utils/useWorkspace";
 import Modal from "./Modal";
-import { VotingType, likeTweet } from "@/rpc-calls/likePost";
+import { VotingResult, likeTweet } from "@/rpc-calls/likePost";
 import { sendComment } from "@/rpc-calls/postComment";
 
 interface TweetCardProps {
@@ -56,7 +56,7 @@ const TweetCard = ({ author, content,  tag , tweetKey }: TweetCardProps) => {
   }
 
   const likePost = () => {
-    likeTweet(tweetKey , VotingType.Like)
+    likeTweet(tweetKey , VotingResult.Like)
   }
   const showModal = () => {
     setLoadModal(true)
@@ -87,7 +87,7 @@ const TweetCard = ({ author, content,  tag , tweetKey }: TweetCardProps) => {
       <span className="ml-auto">
           
        {
-        wallet.publicKey.toBase58() === "someradnomekey " ?  <AiFillDelete className="mr-1 hover:text-pink-400 hover:cursor-pointer" /> : <></>
+        wallet.publicKey.toBase58() === "someradnomekeysdasdasdweafasd" ?  <AiFillDelete className="mr-1 hover:text-pink-400 hover:cursor-pointer" /> : <></>
        }
         
         </span>
