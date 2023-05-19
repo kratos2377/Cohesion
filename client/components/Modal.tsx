@@ -41,7 +41,7 @@ const Modal = ({tweetKey , closeModal}: Props) => {
       {
         loading ? <Loading /> : <>{
           loadedComments && loadedComments.length === 0 ? <div className='text-center mt-5'>No comments made on this post</div> :
-          loadedComments.map((ele) => <CommentCard comment={ele.account.content} publicKey={ele.account.user} />)
+          loadedComments.map((ele , index) => <CommentCard key={index} comment={ele.account.content} publicKey={ele.account.user} />)
         }</>
       }
       </div>

@@ -60,7 +60,7 @@ const User = () => {
     <div className='mx-8 my-3'>
     {
       loading ? <div className='mt-8'><Loading/> </div> :  <div > 
-     {tweets.map( (ele) =>  <TweetCard  tweetKey={ele.publicKey.toBase58()} tag={ele.account.tag} author={ele.account.user.toBase58()} content={ele.account.content} /> )}
+     {tweets.map( (ele , index) =>  <TweetCard key={index} tweetKey={ele.publicKey.toBase58()} tag={ele.account.tag} author={ele.account.user.toBase58()} content={ele.account.content} /> )}
      </div>
      }
     </div>
