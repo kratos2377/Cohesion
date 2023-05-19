@@ -4,14 +4,17 @@ import { FaComment, FaHeart  } from "react-icons/fa";
 import {AiOutlineComment , AiFillDelete} from "react-icons/ai"
 import { useWorkspace } from "@/utils/useWorkspace";
 import Modal from "./Modal";
+import { VotingType, likeTweet } from "@/rpc-calls/likePost";
+import { sendComment } from "@/rpc-calls/postComment";
 
 interface TweetCardProps {
   author: string,
   content: string,
-  tag: string
+  tag: string,
+  tweetKey:  string 
 }
 
-const TweetCard = ({ author, content,  tag }: TweetCardProps) => {
+const TweetCard = ({ author, content,  tag , tweetKey }: TweetCardProps) => {
   const [showComment, setShowComment] = useState(false);
   const [commentContent, setCommentContent] = useState("");
   const [charCount, setCharCount] = useState(0);
@@ -24,6 +27,7 @@ const TweetCard = ({ author, content,  tag }: TweetCardProps) => {
   }
 
   const handleComment = () => {
+    sendComment(tweetKey , commentContent , tweetKey)
     setShowComment(false);
     setCommentContent("");
   };
@@ -48,6 +52,9 @@ const TweetCard = ({ author, content,  tag }: TweetCardProps) => {
     router.push(`/topics/${tag}`)
   }
 
+  const likePost = () => {
+    likeTweet(tweetKey , VotingType.Like)
+  }
   const showModal = () => {
     setLoadModal(true)
   }
@@ -95,7 +102,7 @@ const TweetCard = ({ author, content,  tag }: TweetCardProps) => {
             
           </div>
           <div>
-            <FaHeart className="mr-1 hover:text-pink-400 hover:cursor-pointer" />
+            <FaHeart onClick={likePost} className="mr-1 hover:text-pink-400 hover:cursor-pointer" />
             
           </div>
 
@@ -131,7 +138,7 @@ const TweetCard = ({ author, content,  tag }: TweetCardProps) => {
       )}
 
        {
-        loadModal && <Modal/>
+        loadModal && <Modal closeModal={closeModal} tweetKey={tweetKey}/>
        }
     </div>
   );

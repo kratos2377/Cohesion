@@ -3,21 +3,22 @@ import { useWorkspace } from '../utils/useWorkspace'
 
 export const fetchTweets = async (filters = []) => {
   const { program } = useWorkspace()
-  console.log("Everything about program: " , program.account)
   const tweets = await program.account.tweet.all(filters)
-
   return tweets
 }
 
 export const authorTweets = async (authorBase58PublicKey: string) => {
   const { program } = useWorkspace()
-  const tweets = await program.account.tweet.all( {
+  const tweets = await program.account.tweet.all( [{
     memcmp: {
       offset: 8, // Discriminator.
       bytes: authorBase58PublicKey,
     },
-  }
+  } ]
 )
+
+
+console.log("Author tweets are: " , tweets)
 
   return tweets
 
@@ -26,7 +27,7 @@ export const authorTweets = async (authorBase58PublicKey: string) => {
 export const topicWiseTweets = async (topic: string) => {
 
   const { program } = useWorkspace()
-  const tweets = await program.account.tweet.all( {
+  const tweets = await program.account.tweet.all([ {
     memcmp: {
       offset:
         8 + // Discriminator.
@@ -35,7 +36,7 @@ export const topicWiseTweets = async (topic: string) => {
         4, // Topic string prefix.
       bytes: bs58.encode(Buffer.from(topic)),
     },
-  }
+  } ]
 )
 
   return tweets

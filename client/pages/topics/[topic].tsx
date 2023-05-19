@@ -66,7 +66,7 @@ const Topics = () => {
 
 {
   loading ? <div className='mt-8'><Loading/></div> : <div>
-  {tweets.length === 0 ? <NoTweets message={"You have not posted any tweets"}/>   : tweets.map( (ele) => <TweetCard tag={ele.account.tag} author={ele.account.user.toBase58()} content={ele.account.content} /> )}
+  {tweets.length === 0 ? <NoTweets message={"You have not posted any tweets"}/>   : tweets.map( (ele) => <TweetCard  tweetKey={ele.publicKey.toBase58()} tag={ele.account.tag} author={ele.account.user.toBase58()} content={ele.account.content} /> )}
 </div>
 }
 

@@ -55,7 +55,7 @@ const HomeFeed = () => {
 </div> : <> </>
  }
         <div>
-          { loadedTweets.length === 0 ? <NoTweets message={"Looks like no tweets have been made by any user. You can write your own tweets or wait for others to write something"}/>   : loadedTweets.map( (ele) =>  <TweetCard tag={ele.account.tag} author={ele.account.user.toBase58()} content={ele.account.content} /> )}
+          { loadedTweets.length === 0 ? <NoTweets message={"Looks like no tweets have been made by any user. You can write your own tweets or wait for others to write something"}/>   : loadedTweets.map( (ele , index) =>  <TweetCard key={index} tag={ele.account.tag} author={ele.account.user.toBase58()} tweetKey={ele.publicKey.toBase58()} content={ele.account.content} /> )}
         </div></>
         }
     </div>

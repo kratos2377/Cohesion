@@ -26,7 +26,6 @@ export const initializeTagsMap = (tweets: TweetType[]) => {
     })
 
 
-    console.log(userPostMap)
 }
 
 

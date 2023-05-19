@@ -79,7 +79,7 @@ Your Posts
 <div className='mx-8 my-3'>
 {
   loading ? <div className='mt-8'><Loading/> </div> :  <div > 
- { loadedTweets.length === 0 ? <NoTweets message={"You have not posted any tweets"}/>   : loadedTweets.map( (ele) =>  <TweetCard tag={ele.account.tag} author={ele.account.user.toBase58()} content={ele.account.content}  /> )}
+ { loadedTweets.length === 0 ? <NoTweets message={"You have not posted any tweets"}/>   : loadedTweets.map( (ele , index) =>  <TweetCard key = {index}  tag={ele.account.tag} author={ele.account.user.toBase58()} content={ele.account.content}  /> )}
  </div>
  }
 </div>
