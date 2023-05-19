@@ -27,6 +27,9 @@ const TweetCard = ({ author, content,  tag , tweetKey }: TweetCardProps) => {
   }
 
   const handleComment = () => {
+    if(commentContent.trim().length < 5) {
+      return;
+    }
     sendComment(tweetKey , commentContent , tweetKey)
     setShowComment(false);
     setCommentContent("");
@@ -117,7 +120,8 @@ const TweetCard = ({ author, content,  tag , tweetKey }: TweetCardProps) => {
       {showComment && (
         <div className="mt-4">
           <textarea className="w-full text-black rounded-md border-2 p-2" onChange={writingComment} 
-          placeholder="Write Comment..."
+          placeholder="Write Comment... (Comment must be of atleast length 5)"
+          maxLength={60}
           />
           <div className="flex justify-end mt-2">
           <div className="flex-row item-center justify-center mr-3 mt-2.5 text-gray-400 text-sm">{commentRemaining}</div>

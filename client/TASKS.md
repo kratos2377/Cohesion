@@ -1,6 +1,7 @@
-[ ] User can add comment
+[x] User can add comment
 [ ] User can like
-[ ] User can see comments on the posts
+[x] User can see comments on the posts
+[x] Fix Comments modal
 [ ] User can check whether he liked post or not
 
 ----- Deploy -----
