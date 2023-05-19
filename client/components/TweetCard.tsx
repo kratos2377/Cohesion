@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { FaComment, FaHeart  } from "react-icons/fa";
 import {AiOutlineComment , AiFillDelete} from "react-icons/ai"
 import { useWorkspace } from "@/utils/useWorkspace";
+import Modal from "./Modal";
 
 interface TweetCardProps {
   author: string,
@@ -14,6 +15,7 @@ const TweetCard = ({ author, content,  tag }: TweetCardProps) => {
   const [showComment, setShowComment] = useState(false);
   const [commentContent, setCommentContent] = useState("");
   const [charCount, setCharCount] = useState(0);
+  const [loadModal , setLoadModal] = useState(false)
   const router = useRouter()
   const { wallet } = useWorkspace()
   const handleCommentWindow = () => {
@@ -45,6 +47,15 @@ const TweetCard = ({ author, content,  tag }: TweetCardProps) => {
   const redirectToTopic = () => {
     router.push(`/topics/${tag}`)
   }
+
+  const showModal = () => {
+    setLoadModal(true)
+  }
+
+  const closeModal = () => {
+    setLoadModal(false)
+  }
+
   const commentRemaining = 60 - charCount
   let authorKey = author.substring(0 , 6) + "......" + author.slice(-6)
   return (
@@ -90,7 +101,7 @@ const TweetCard = ({ author, content,  tag }: TweetCardProps) => {
 
 
 <div>
-            <AiOutlineComment className="mr-1 hover:text-pink-400 hover:cursor-pointer" />
+            <AiOutlineComment onClick={showModal} className="mr-1 hover:text-pink-400 hover:cursor-pointer" />
         </div>
           </div>
      
@@ -118,6 +129,10 @@ const TweetCard = ({ author, content,  tag }: TweetCardProps) => {
           </div>
         </div>
       )}
+
+       {
+        loadModal && <Modal/>
+       }
     </div>
   );
 };
